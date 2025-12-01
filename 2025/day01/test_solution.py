@@ -8,9 +8,7 @@ class TestPart1:
     """Tests for part 1."""
 
     def test_example_1(self):
-        """Example test case."""
-        pass
-
+        assert part1("R49") == 1
 
 class TestPart2:
     """Tests for part 2."""
