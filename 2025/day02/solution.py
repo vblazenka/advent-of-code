@@ -1,6 +1,9 @@
 """Advent of Code 2025 - Day 2"""
 
 # I'll optimize the solution :D
+from math import floor
+
+
 def part1(data: str) -> int | str | None:
     sum = 0
     for line in data.split(','):
@@ -12,10 +15,40 @@ def part1(data: str) -> int | str | None:
                     sum += int(f"{l}{r}")
     return sum
 
-
 def part2(data: str) -> int | str | None:
-    """Solve part 2."""
-    pass
+    sum = 0
+    for line in data.split(','):
+        lb, rb = line.split("-")
+        for i in range(int(lb), int(rb) + 1):
+            s = str(i)
+            found = False
+            for pattern_len in range(1, len(s)):
+                if len(s) % pattern_len != 0:
+                    continue
+                pattern = s[:pattern_len]
+                is_match = True
+                for j in range(0, len(s), pattern_len):
+                    chunk = s[j:j+pattern_len]
+                    if chunk != pattern:
+                        is_match = False
+                        break
+                if is_match:
+                    found = True
+                    break
+            if found:
+                sum += i
+    return sum
+
+    total = 0
+    for line in data.split(','):
+        lb, rb = line.split("-")
+        for i in range(int(lb), int(rb) + 1):
+            if is_invalid(i):
+                total += i
+    return total
+
+
+    return sum
 
 if __name__ == "__main__":
     # Read input and solve
@@ -23,4 +56,4 @@ if __name__ == "__main__":
         data = f.read().strip()
 
     print(f"Part 1: {part1(data)}")
-    # print(f"Part 2: {part2(data)}")
+    print(f"Part 2: {part2(data)}")
